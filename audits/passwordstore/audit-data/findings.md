@@ -22,3 +22,32 @@ and the output of this command is myPassword
 
 **Recommended Mitigation:** 
 Due to this, You should encrypt the password off-chain  then store the encrypted password on-chain.
+
+
+
+
+### [S-#] Wrong access control
+
+**Description:** Anyone can set a new password in setPassword function which is critical because onlyOwner should be able to do it.
+
+**Impact:**  Your password is not safe due to this bug anyone in any time can change your password and use it.
+
+**Proof of Concept:**
+
+we can prove it by tests;
+
+
+function testCanAnyOneCallSetPasswordFunc(adress randomAddress) public {
+    vm.prank(randomAddress)
+    string memory expetecPassword = "ez"
+    passwordstore.setPassword(expetecPassword)
+
+    vm.prank(owner)
+    string memory acutalPassword = passwrodstore.getPassword()
+    assertEq(expetecPassword,acutalPassword)
+}
+
+**Recommended Mitigation:** Add an accesss control coniditonal to the setPassword function. 
+if(msg.sender != s_owner){
+    revert PasswrodStore__NotOwner;
+}
