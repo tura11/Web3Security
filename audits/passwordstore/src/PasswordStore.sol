@@ -11,6 +11,7 @@ contract PasswordStore {
     error PasswordStore__NotOwner();
 
     address private s_owner;
+    //@audit-high everyone can see the password, breaks the protocol
     string private s_password;
 
     event SetNewPassword();
