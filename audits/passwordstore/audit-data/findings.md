@@ -1,4 +1,4 @@
-### [S-#] Storing the password on-chain make it visable to anyone and no loner private.
+### [H-1] Storing the password on-chain make it visable to anyone and no loner private.
 
 **Description:**  All data stored on chain is visable to anyone.
 PasswordStore::s_password variable is intended to be private and only accesed through the PasswordStore::GetPassword  function which is inteded to be only called by owner
@@ -23,10 +23,13 @@ and the output of this command is myPassword
 **Recommended Mitigation:** 
 Due to this, You should encrypt the password off-chain  then store the encrypted password on-chain.
 
+## Likelihood & Impact:
+- Impact: High
+- Likelihood: High
+- Severity: High
 
 
-
-### [S-#] Wrong access control
+### [H-2] Wrong access control
 
 **Description:** Anyone can set a new password in setPassword function which is critical because onlyOwner should be able to do it.
 
@@ -51,3 +54,32 @@ function testCanAnyOneCallSetPasswordFunc(adress randomAddress) public {
 if(msg.sender != s_owner){
     revert PasswrodStore__NotOwner;
 }
+
+## Likelihood & Impact:
+- Impact: High
+- Likelihood: High
+- Severity: High
+
+
+### [L-1] Incorrect NatSpec
+
+**Description:**  natspec indicates a parameter that doesnt exist
+
+**Impact:** low
+
+**Proof of Concept:** 
+
+    /*
+     * @notice This allows only the owner to retrieve the password.
+     * @param newPassword The new password to set.
+     */
+
+     function getPassword() external view returns (string memory)
+
+**Recommended Mitigation:**  Remove @param in NatSpec
+
+
+## Likelihood & Impact:
+- Impact: None
+- Likelihood: None
+- Severity: informational
