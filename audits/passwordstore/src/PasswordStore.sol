@@ -37,7 +37,7 @@ contract PasswordStore {
      * @param newPassword The new password to set.
      */
 
-     //@audit-medium, missing param like newPassword
+     //@audit-low, missing param like newPassword
     function getPassword() external view returns (string memory) {
         if (msg.sender != s_owner) {
             revert PasswordStore__NotOwner();
