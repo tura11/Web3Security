@@ -32,7 +32,7 @@ contract PuppyRaffle is ERC721, Ownable {
     // mappings to keep track of token traits
     mapping(uint256 => uint256) public tokenIdToRarity;
     mapping(uint256 => string) public rarityToUri;
-    mapping(uint256 => string) public rarityToName;
+    mapping(uint256 => string) public rarityToName; 
 
     // Stats for the common puppy (pug)
     string private commonImageUri = "ipfs://QmSsYRx3LpDAb1GZQm7zZ1AuHZjfbPkD6J7s9r41xu1mf8";
