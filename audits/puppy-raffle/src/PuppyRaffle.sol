@@ -77,8 +77,8 @@ contract PuppyRaffle is ERC721, Ownable {
     /// @notice duplicate entrants are not allowed
     /// @param newPlayers the list of players to enter the raffle
     function enterRaffle(address[] memory newPlayers) public payable {
-        require(msg.value == entranceFee * newPlayers.length, "PuppyRaffle: Must send enough to enter raffle");
-        for (uint256 i = 0; i < newPlayers.length; i++) {
+        require(msg.value == entranceFee * newPlayers.length, "PuppyRaffle: Must send enough to enter raffle"); //audit-high, how players should know how much is entranceFee * newPlayers.length if entraceFee is setting in construcotr by owner
+        for (uint256 i = 0; i < newPlayers.length; i++) {                                                        // this bug makes enter raffle barely impossible
             players.push(newPlayers[i]);
         }
 
