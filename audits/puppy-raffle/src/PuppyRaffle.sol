@@ -77,8 +77,8 @@ contract PuppyRaffle is ERC721, Ownable {
     /// @notice duplicate entrants are not allowed
     /// @param newPlayers the list of players to enter the raffle
     function enterRaffle(address[] memory newPlayers) public payable {
-        require(msg.value == entranceFee * newPlayers.length, "PuppyRaffle: Must send enough to enter raffle"); //audit-high, how players should know how much is entranceFee * newPlayers.length if entraceFee is setting in construcotr by owner
-        for (uint256 i = 0; i < newPlayers.length; i++) {                                                        // this bug makes enter raffle barely impossible
+        require(msg.value == entranceFee * newPlayers.length, "PuppyRaffle: Must send enough to enter raffle"); 
+        for (uint256 i = 0; i < newPlayers.length; i++) {                                                        
             players.push(newPlayers[i]);
         }
 
@@ -130,7 +130,7 @@ contract PuppyRaffle is ERC721, Ownable {
         uint256 totalAmountCollected = players.length * entranceFee;
         uint256 prizePool = (totalAmountCollected * 80) / 100;
         uint256 fee = (totalAmountCollected * 20) / 100;
-        totalFees = totalFees + uint64(fee);
+        totalFees = totalFees + uint64(fee); //q what if fee would be over 2^63??
 
         uint256 tokenId = totalSupply();
 
@@ -154,7 +154,7 @@ contract PuppyRaffle is ERC721, Ownable {
 
     /// @notice this function will withdraw the fees to the feeAddress
     function withdrawFees() external {
-        require(address(this).balance == uint256(totalFees), "PuppyRaffle: There are currently players active!");
+        require(address(this).balance == uint256(totalFees), "PuppyRaffle: There are currently players active!"); // audit-medium whole balance of this contract is fees and 
         uint256 feesToWithdraw = totalFees;
         totalFees = 0;
         (bool success,) = feeAddress.call{value: feesToWithdraw}("");
