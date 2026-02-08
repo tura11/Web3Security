@@ -79,7 +79,7 @@ contract PuppyRaffle is ERC721, Ownable {
     function enterRaffle(address[] memory newPlayers) public payable {
         require(msg.value == entranceFee * newPlayers.length, "PuppyRaffle: Must send enough to enter raffle"); 
         for (uint256 i = 0; i < newPlayers.length; i++) {                                                        
-            players.push(newPlayers[i]);
+            players.push(newPlayers[i]); // audit-high, DoS attack possible
         }
 
         // Check for duplicates
