@@ -154,7 +154,7 @@ contract PuppyRaffle is ERC721, Ownable {
 
     /// @notice this function will withdraw the fees to the feeAddress
     function withdrawFees() external {
-        require(address(this).balance == uint256(totalFees), "PuppyRaffle: There are currently players active!"); // audit-medium whole balance of this contract is fees and 
+        require(address(this).balance == uint256(totalFees), "PuppyRaffle: There are currently players active!"); //audit-medium, incorrect equality, total fees are 20% of contract balance not 100%
         uint256 feesToWithdraw = totalFees;
         totalFees = 0;
         (bool success,) = feeAddress.call{value: feesToWithdraw}("");
