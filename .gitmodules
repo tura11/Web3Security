@@ -1,0 +1,3 @@
+[submodule "audits/puppy-raffle/lib/openzeppelin-contracts"]
+	path = audits/puppy-raffle/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
