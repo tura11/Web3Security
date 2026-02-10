@@ -213,4 +213,21 @@ contract PuppyRaffleTest is Test {
         puppyRaffle.withdrawFees();
         assertEq(address(feeAddress).balance, expectedPrizeAmount);
     }
+
+
+    function testDos() public {
+        uint256 plaersNum = 100;
+        address[] memory players = new address[](plaersNum);
+
+        for(uint256 i = 0; i < plaersNum; i++){
+            players[i] = address(i);
+        }
+        uint256 gasStart = gasleft();
+        puppyRaffle.enterRaffle{value: entranceFee * plaersNum}(players);
+        uint256 gasEnd = gasleft();
+
+        uint256 totalGasCost = gasEnd - gasStart;
+
+
+    }
 }
