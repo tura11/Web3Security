@@ -1,11 +1,20 @@
 {
   "lib/base64": {
-    "rev": "4d85607b18d981acff392d2e99ba654305552a97"
+    "tag": {
+      "name": "v1.1.0",
+      "rev": "dcbf852ba545b3d15de0ac0ef88dce934c090c8e"
+    }
   },
   "lib/forge-std": {
-    "rev": "aeb45e9f32ef8ca78f0aeda17596e9c46374da41"
+    "tag": {
+      "name": "v1.3.0",
+      "rev": "066ff16c5c03e6f931cd041fd366bc4be1fae82a"
+    }
   },
   "lib/openzeppelin-contracts": {
-    "rev": "3c063fc49450f91899ab70388d7178f347d1028b"
+    "tag": {
+      "name": "v3.4.0",
+      "rev": "fa64a1ced0b70ab89073d5d0b6e01b0778f7e7d6"
+    }
   }
 }

@@ -226,8 +226,25 @@ contract PuppyRaffleTest is Test {
         puppyRaffle.enterRaffle{value: entranceFee * plaersNum}(players);
         uint256 gasEnd = gasleft();
 
-        uint256 totalGasCost = gasEnd - gasStart;
+        uint256 totalGasCost = gasStart - gasEnd;
 
+        console.log("Gas cost: ", totalGasCost);
 
+        uint256 playersNum2 = 100;
+        address[] memory players2 = new address[](playersNum2);
+
+        for(uint256 i = 0; i < playersNum2; i++){
+            players2[i] = address(i + plaersNum);
+        }
+        uint256 gasStart2 = gasleft();
+        puppyRaffle.enterRaffle{value: entranceFee * playersNum2}(players2);
+        uint256 gasEnd2 = gasleft();
+
+        uint256 totalGasUsed2 = gasStart2 - gasEnd2;
+
+        console.log("Gas used for 200 players: ", totalGasUsed2);
+        console.log("Gas increase: ", totalGasUsed2 - totalGasCost);
     }
+
+    
 }
