@@ -277,6 +277,22 @@ contract PuppyRaffleTest is Test {
         console.log("ending contract balance: ", address(puppyRaffle).balance);
  
     }
+
+
+    function testOverFlow() public {
+        uint64 totalFee = puppyRaffle.totalFees();
+        uint64 overflow = 2**64 - 1;
+        // totalFee is uint64 so if we add 2^64  the amount of totalFee will reset to 0
+        totalFee = totalFee + overflow + 1;
+        console.log(totalFee); // value is 0
+
+    }
+
+    function testUnderFlow() public {
+        uint64 totalFee = puppyRaffle.totalFees();
+        totalFee = totalFee - 1;
+        console.log(totalFee); // value is 2^64 - 1
+    }
     
 }
 
