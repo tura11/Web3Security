@@ -134,10 +134,11 @@ contract PuppyRaffle is ERC721, Ownable {
         uint256 totalAmountCollected = players.length * entranceFee;
         uint256 prizePool = (totalAmountCollected * 80) / 100;
         uint256 fee = (totalAmountCollected * 20) / 100;
+        //audit overflow and unsafe cast of uint256 to uint64
         totalFees = totalFees + uint64(fee); //q what if fee would be over 2^63??
 
         uint256 tokenId = totalSupply();
-
+        //audit weak randomenss
         // We use a different RNG calculate from the winnerIndex to determine rarity
         uint256 rarity = uint256(keccak256(abi.encodePacked(msg.sender, block.difficulty))) % 100;
         if (rarity <= COMMON_RARITY) {
