@@ -36,17 +36,17 @@ contract PuppyRaffle is ERC721, Ownable {
 
     // Stats for the common puppy (pug)
     string private commonImageUri = "ipfs://QmSsYRx3LpDAb1GZQm7zZ1AuHZjfbPkD6J7s9r41xu1mf8"; //audit could be constant
-    uint256 public constant COMMON_RARITY = 70; //q uint256 to store 70? should use uint16 if its constant variable for gas efficency
+    uint256 public constant COMMON_RARITY = 70; 
     string private constant COMMON = "common";
 
     // Stats for the rare puppy (st. bernard)
     string private rareImageUri = "ipfs://QmUPjADFGEKmfohdTaNcWhp7VGk26h5jXDA7v3VtTnTLcW";//audit could be constant
-    uint256 public constant RARE_RARITY = 25;//q uint256 to store 25? should use uint8 if its constant variable for gas efficency
+    uint256 public constant RARE_RARITY = 25;
     string private constant RARE = "rare";
 
     // Stats for the legendary puppy (shiba inu)
     string private legendaryImageUri = "ipfs://QmYx6GsYAKnNzZ9A6NvEKV9nf1VaDzJrqDR23Y8YSkebLU";//audit could be constant
-    uint256 public constant LEGENDARY_RARITY = 5;//q uint256 to store 5? should use uint8 if its constant variable for gas efficency
+    uint256 public constant LEGENDARY_RARITY = 5;
     string private constant LEGENDARY = "legendary";
 
     // Events
@@ -59,6 +59,7 @@ contract PuppyRaffle is ERC721, Ownable {
     /// @param _raffleDuration the duration in seconds of the raffle
     constructor(uint256 _entranceFee, address _feeAddress, uint256 _raffleDuration) ERC721("Puppy Raffle", "PR") {
         entranceFee = _entranceFee;
+        //audit checks for address zero
         feeAddress = _feeAddress;
         raffleDuration = _raffleDuration;
         raffleStartTime = block.timestamp;
@@ -78,7 +79,7 @@ contract PuppyRaffle is ERC721, Ownable {
     /// @param newPlayers the list of players to enter the raffle
     function enterRaffle(address[] memory newPlayers) public payable {
         //q what if someone enter 1000 players at once?
-        //audit we should make variable which set max players at one enter
+        //audit consider make variable which set max players at one enter
         require(msg.value == entranceFee * newPlayers.length, "PuppyRaffle: Must send enough to enter raffle"); 
         for (uint256 i = 0; i < newPlayers.length; i++) {                                                        
             players.push(newPlayers[i]); 
@@ -162,7 +163,7 @@ contract PuppyRaffle is ERC721, Ownable {
 
     /// @notice this function will withdraw the fees to the feeAddress
     function withdrawFees() external {
-        require(address(this).balance == uint256(totalFees), "PuppyRaffle: There are currently players active!"); //audit-medium, incorrect equality, total fees are 20% of contract balance not 100%
+        require(address(this).balance == uint256(totalFees), "PuppyRaffle: There are currently players active!"); //audit-medium, incorrect equality
         uint256 feesToWithdraw = totalFees;
         totalFees = 0;
         (bool success,) = feeAddress.call{value: feesToWithdraw}("");
@@ -177,7 +178,7 @@ contract PuppyRaffle is ERC721, Ownable {
     }
 
     /// @notice this function will return true if the msg.sender is an active player
-    function _isActivePlayer() internal view returns (bool) {
+    function _isActivePlayer() internal view returns (bool) { //audit dead function, you never you it
         for (uint256 i = 0; i < players.length; i++) {
             if (players[i] == msg.sender) {
                 return true;

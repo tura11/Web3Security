@@ -7,6 +7,22 @@
 **Proof of Concept:**
 totalFees = totalFees + uint64(fee); //q what if fee would be over 2^63??
 
+    function testOverFlow() public {
+        uint64 totalFee = puppyRaffle.totalFees();
+        uint64 overflow = 2**64 - 1;
+        // totalFee is uint64 so if we add 2^64  the amount of totalFee will reset to 0
+        totalFee = totalFee + overflow + 1;
+        console.log(totalFee); // value is 0
+
+    }
+
+    function testUnderFlow() public {
+        uint64 totalFee = puppyRaffle.totalFees();
+        totalFee = totalFee - 1;
+        console.log(totalFee); // value is 2^64 - 1
+    }
+    
+
 **Recommended Mitigation:** Using newer version of solidity
 
 
@@ -139,3 +155,15 @@ contract ReentrancyAtack {
     }
 
 **Recommended Mitigation:** Follow Check Effects Intreactions pattern, or use ReentrancyGuard libary from openzeppelin.
+
+
+### [S-#] TITLE Weak RNG
+
+**Description:** In select winner function we uses weak rng, randomness based on  msg.sender, block.timestamp, block.difficulty can be easliy manipulated by miners, so in this case than can choose which nft they wanna mint.
+
+**Impact:** High
+
+**Proof of Concept:**
+ Exploits in the past on the similars protocols
+
+**Recommended Mitigation:**  USE chainlink VRF for the fully verified randomness.
