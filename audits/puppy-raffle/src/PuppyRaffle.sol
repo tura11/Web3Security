@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+//audit try to use specified version of solidity not folat version
 pragma solidity ^0.7.6; //audit-low old version, use ^0.8.0 due to fixed overflow issue
 
 import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
@@ -21,7 +22,7 @@ contract PuppyRaffle is ERC721, Ownable {
     uint256 public immutable entranceFee;
 
     address[] public players;
-    uint256 public raffleDuration;
+    uint256 public raffleDuration; //audit we nowhere change this variabale so could be immtuable
     uint256 public raffleStartTime;
     address public previousWinner;
 
@@ -77,10 +78,11 @@ contract PuppyRaffle is ERC721, Ownable {
     /// @notice they have to pay the entrance fee * the number of players
     /// @notice duplicate entrants are not allowed
     /// @param newPlayers the list of players to enter the raffle
-    function enterRaffle(address[] memory newPlayers) public payable {
+    function enterRaffle(address[] memory newPlayers) public payable { //aduit could be external for gas efficiency
         //q what if someone enter 1000 players at once?
         //audit consider make variable which set max players at one enter
         require(msg.value == entranceFee * newPlayers.length, "PuppyRaffle: Must send enough to enter raffle"); 
+        //audit for gas efficeny storee newPlayers.length in a variable
         for (uint256 i = 0; i < newPlayers.length; i++) {                                                        
             players.push(newPlayers[i]); 
         }
@@ -168,6 +170,8 @@ contract PuppyRaffle is ERC721, Ownable {
         totalFees = 0;
         (bool success,) = feeAddress.call{value: feesToWithdraw}("");
         require(success, "PuppyRaffle: Failed to withdraw fees");
+
+        //audit where is the event?
     }
 
     /// @notice only the owner of the contract can change the feeAddress
@@ -178,7 +182,7 @@ contract PuppyRaffle is ERC721, Ownable {
     }
 
     /// @notice this function will return true if the msg.sender is an active player
-    function _isActivePlayer() internal view returns (bool) { //audit dead function, you never you it
+    function _isActivePlayer() internal view returns (bool) { //audit dead function, you nowhere using it
         for (uint256 i = 0; i < players.length; i++) {
             if (players[i] == msg.sender) {
                 return true;
