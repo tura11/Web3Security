@@ -43,19 +43,15 @@ Lead Auditors:
   - [Issues found](#issues-found)
 - [Findings](#findings)
 - [High](#high)
-- [Medium](#medium)
-- [Low](#low)
 - [Informational](#informational)
-- [Gas](#gas)
 
 # Protocol Summary
 
-This contract allows you to store a private password that others won't be able to see. 
- * You can update your password at any time.
+This protocol allow you to store your password on chain and let you change it any time you want it.
 
 # Disclaimer
 
-The Tura11 team makes all effort to find as many vulnerabilities in the code in the given time period, but holds no responsibilities for the findings provided in this document. A security audit by the team is not an endorsement of the underlying business or product. The audit was time-boxed and the review of the code was solely on the security aspects of the Solidity implementation of the contracts.
+The Tura11  makes all effort to find as many vulnerabilities in the code in the given time period, but holds no responsibilities for the findings provided in this document. A security audit by the team is not an endorsement of the underlying business or product. The audit was time-boxed and the review of the code was solely on the security aspects of the Solidity implementation of the contracts.
 
 # Risk Classification
 
@@ -69,13 +65,25 @@ The Tura11 team makes all effort to find as many vulnerabilities in the code in 
 We use the [CodeHawks](https://docs.codehawks.com/hawks-auditors/how-to-evaluate-a-finding-severity) severity matrix to determine severity. See the documentation for more details.
 
 # Audit Details 
+All fidnings are describe in findings.md file
 ## Scope 
+./src/PasswordStore.sol
 ## Roles
+Owner: The user who can set the password and read the password.
+Outsides: No one else should be able to set or read the password.
+
 # Executive Summary
+The audit went pretty easily and fast due to scope size.
 ## Issues found
+2 high issues
+1 info issue
+Total: 3
 # Findings
+Storing the password on-chain make it visable to anyone and no loner private.
+Wrong access control
+Incorrect NatSpec
 # High
-# Medium
-# Low 
+Storing the password on-chain make it visable to anyone and no loner private.
+Wrong access control
 # Informational
-# Gas 
+Incorrect NatSpec
