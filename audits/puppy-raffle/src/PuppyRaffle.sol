@@ -35,17 +35,17 @@ contract PuppyRaffle is ERC721, Ownable {
     mapping(uint256 => string) public rarityToName; 
 
     // Stats for the common puppy (pug)
-    string private commonImageUri = "ipfs://QmSsYRx3LpDAb1GZQm7zZ1AuHZjfbPkD6J7s9r41xu1mf8";
+    string private commonImageUri = "ipfs://QmSsYRx3LpDAb1GZQm7zZ1AuHZjfbPkD6J7s9r41xu1mf8"; //audit could be constant
     uint256 public constant COMMON_RARITY = 70; //q uint256 to store 70? should use uint16 if its constant variable for gas efficency
     string private constant COMMON = "common";
 
     // Stats for the rare puppy (st. bernard)
-    string private rareImageUri = "ipfs://QmUPjADFGEKmfohdTaNcWhp7VGk26h5jXDA7v3VtTnTLcW";
+    string private rareImageUri = "ipfs://QmUPjADFGEKmfohdTaNcWhp7VGk26h5jXDA7v3VtTnTLcW";//audit could be constant
     uint256 public constant RARE_RARITY = 25;//q uint256 to store 25? should use uint8 if its constant variable for gas efficency
     string private constant RARE = "rare";
 
     // Stats for the legendary puppy (shiba inu)
-    string private legendaryImageUri = "ipfs://QmYx6GsYAKnNzZ9A6NvEKV9nf1VaDzJrqDR23Y8YSkebLU";
+    string private legendaryImageUri = "ipfs://QmYx6GsYAKnNzZ9A6NvEKV9nf1VaDzJrqDR23Y8YSkebLU";//audit could be constant
     uint256 public constant LEGENDARY_RARITY = 5;//q uint256 to store 5? should use uint8 if its constant variable for gas efficency
     string private constant LEGENDARY = "legendary";
 
