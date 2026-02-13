@@ -77,11 +77,13 @@ contract PuppyRaffle is ERC721, Ownable {
     /// @notice duplicate entrants are not allowed
     /// @param newPlayers the list of players to enter the raffle
     function enterRaffle(address[] memory newPlayers) public payable {
+        //q what if someone enter 1000 players at once?
+        //audit we should make variable which set max players at one enter
         require(msg.value == entranceFee * newPlayers.length, "PuppyRaffle: Must send enough to enter raffle"); 
         for (uint256 i = 0; i < newPlayers.length; i++) {                                                        
-            players.push(newPlayers[i]); // audit-high, DoS attack possible
+            players.push(newPlayers[i]); 
         }
-
+        // audit-high, DoS attack possible
         // Check for duplicates
         for (uint256 i = 0; i < players.length - 1; i++) {
             for (uint256 j = i + 1; j < players.length; j++) {
