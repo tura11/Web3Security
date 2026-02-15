@@ -19,7 +19,7 @@ import { IERC20 } from "forge-std/interfaces/IERC20.sol";
 
 contract PoolFactory {
     error PoolFactory__PoolAlreadyExists(address tokenAddress);
-    error PoolFactory__PoolDoesNotExist(address tokenAddress);
+    error PoolFactory__PoolDoesNotExist(address tokenAddress); //audit-gas dead error, not used
 
     /*//////////////////////////////////////////////////////////////
                             STATE VARIABLES
@@ -38,7 +38,7 @@ contract PoolFactory {
                                FUNCTIONS
     //////////////////////////////////////////////////////////////*/
     constructor(address wethToken) {
-        //audit no checks for zero address
+        //audit-informational no checks for zero address
         i_wethToken = wethToken;
     }
 
@@ -46,13 +46,12 @@ contract PoolFactory {
                            EXTERNAL FUNCTIONS
     //////////////////////////////////////////////////////////////*/
     function createPool(address tokenAddress) external returns (address) {
-        //audit no checks for zero address of tokenAddress
+        //audit-informational no checks for zero address of tokenAddress
         if (s_pools[tokenAddress] != address(0)) {
             revert PoolFactory__PoolAlreadyExists(tokenAddress);
         }
         string memory liquidityTokenName = string.concat("T-Swap ", IERC20(tokenAddress).name());
         string memory liquidityTokenSymbol = string.concat("ts", IERC20(tokenAddress).name());
-        //audit how are you using TSwapPool if you don't store it in variable
         TSwapPool tPool = new TSwapPool(tokenAddress, i_wethToken, liquidityTokenName, liquidityTokenSymbol);
         s_pools[tokenAddress] = address(tPool);
         s_tokens[address(tPool)] = tokenAddress;

@@ -1,0 +1,23 @@
+{
+  "../puppy-raffle/lib/base64": {
+    "rev": "dcbf852ba545b3d15de0ac0ef88dce934c090c8e"
+  },
+  "../puppy-raffle/lib/forge-std": {
+    "rev": "066ff16c5c03e6f931cd041fd366bc4be1fae82a"
+  },
+  "../puppy-raffle/lib/openzeppelin-contracts": {
+    "rev": "fa64a1ced0b70ab89073d5d0b6e01b0778f7e7d6"
+  },
+  "lib/forge-std": {
+    "tag": {
+      "name": "v1.14.0",
+      "rev": "1801b0541f4fda118a10798fd3486bb7051c5dd6"
+    }
+  },
+  "lib/openzeppelin-contracts": {
+    "tag": {
+      "name": "v5.5.0",
+      "rev": "fcbae5394ae8ad52d8e580a3477db99814b9d565"
+    }
+  }
+}
