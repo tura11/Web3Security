@@ -38,6 +38,7 @@ contract PoolFactory {
                                FUNCTIONS
     //////////////////////////////////////////////////////////////*/
     constructor(address wethToken) {
+        //audit no checks for zero address
         i_wethToken = wethToken;
     }
 
