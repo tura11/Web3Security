@@ -46,11 +46,13 @@ contract PoolFactory {
                            EXTERNAL FUNCTIONS
     //////////////////////////////////////////////////////////////*/
     function createPool(address tokenAddress) external returns (address) {
+        //audit no checks for zero address of tokenAddress
         if (s_pools[tokenAddress] != address(0)) {
             revert PoolFactory__PoolAlreadyExists(tokenAddress);
         }
         string memory liquidityTokenName = string.concat("T-Swap ", IERC20(tokenAddress).name());
         string memory liquidityTokenSymbol = string.concat("ts", IERC20(tokenAddress).name());
+        //audit how are you using TSwapPool if you don't store it in variable
         TSwapPool tPool = new TSwapPool(tokenAddress, i_wethToken, liquidityTokenName, liquidityTokenSymbol);
         s_pools[tokenAddress] = address(tPool);
         s_tokens[address(tPool)] = tokenAddress;
