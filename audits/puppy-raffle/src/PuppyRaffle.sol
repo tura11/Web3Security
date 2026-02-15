@@ -161,6 +161,7 @@ contract PuppyRaffle is ERC721, Ownable {
         (bool success,) = winner.call{value: prizePool}("");
         require(success, "PuppyRaffle: Failed to send prize pool to winner");
         _safeMint(winner, tokenId);
+        //audit where is the event?
     }
 
     /// @notice this function will withdraw the fees to the feeAddress
