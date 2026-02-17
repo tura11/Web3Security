@@ -15,7 +15,7 @@
 pragma solidity 0.8.20;
 
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import {ERC20, IERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {ERC20, IERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol"; //weird import??
 
 contract TSwapPool is ERC20 {
     error TSwapPool__DeadlineHasPassed(uint64 deadline);
@@ -70,8 +70,8 @@ contract TSwapPool is ERC20 {
     /*//////////////////////////////////////////////////////////////
                                MODIFIERS
     //////////////////////////////////////////////////////////////*/
-    modifier revertIfDeadlinePassed(uint64 deadline) {
-        if (deadline < uint64(block.timestamp)) {
+    modifier revertIfDeadlinePassed(uint64 deadline) { 
+        if (deadline < uint64(block.timestamp)) {//audit-low unnecessary downcasting of block.timestamp to uint64
             revert TSwapPool__DeadlineHasPassed(deadline);
         }
         _;
@@ -370,7 +370,7 @@ contract TSwapPool is ERC20 {
                 i_poolToken,
                 i_wethToken,
                 poolTokenAmount,
-                uint64(block.timestamp)
+                uint64(block.timestamp) //audit-low unnecessary downcasting of block.timestamp to uint64
             );
     }
 
