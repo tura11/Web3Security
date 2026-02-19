@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.22;
+pragma solidity ^0.8.24;
 
 import {ERC20} from "@solmate/src/tokens/ERC20.sol";
 
@@ -15,6 +15,7 @@ contract SantaToken is ERC20 {
     address private immutable i_santasList;
 
     constructor(address santasList) ERC20("SantaToken", "SANTA", DECIMALS) {
+        //audit-informational misisng zero check for address
         i_santasList = santasList;
     }
 
@@ -22,13 +23,13 @@ contract SantaToken is ERC20 {
         if (msg.sender != i_santasList) {
             revert SantaToken__NotSantasList();
         }
-        _mint(to, 1e18);
+        _mint(to, 1e18);//audit-low why we are hard coding mint amount??
     }
 
     function burn(address from) external {
         if (msg.sender != i_santasList) {
             revert SantaToken__NotSantasList();
         }
-        _burn(from, 1e18);
+        _burn(from, 1e18); //audit-low why we are hard coding burn amount?
     }
 }
