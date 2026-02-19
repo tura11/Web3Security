@@ -1,10 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.22;
+pragma solidity ^0.8.24;
 
 import {SantasList} from "../../src/SantasList.sol";
 import {SantaToken} from "../../src/SantaToken.sol";
 import {Test} from "forge-std/Test.sol";
-import {_CheatCodes} from "../mocks/CheatCodes.t.sol";
 
 contract SantasListTest is Test {
     SantasList santasList;
@@ -12,7 +11,6 @@ contract SantasListTest is Test {
 
     address user = makeAddr("user");
     address santa = makeAddr("santa");
-    _CheatCodes cheatCodes = _CheatCodes(HEVM_ADDRESS);
 
     function setUp() public {
         vm.startPrank(santa);
@@ -150,6 +148,6 @@ contract SantasListTest is Test {
         string[] memory cmds = new string[](2);
         cmds[0] = "touch";
         cmds[1] = string.concat("youve-been-pwned");
-        cheatCodes.ffi(cmds);
+        vm.ffi(cmds);
     }
 }

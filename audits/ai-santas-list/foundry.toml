@@ -7,7 +7,7 @@ remappings = [
     '@solmate=lib/solmate-bad',
 ]
 ffi = true
-evm_version = "paris"
+evm_version = "cancun"
 
 [fmt]
 number_underscore = "thousands"

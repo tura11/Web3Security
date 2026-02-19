@@ -1,0 +1,38 @@
+{
+  "../../sc-exploits-minimized/lib/forge-std": {
+    "rev": "0844d7e1fc5e60d77b68e469bff60265f236c398"
+  },
+  "../../sc-exploits-minimized/lib/kontrol-cheatcodes": {
+    "rev": "187b89ad863226afe494caa9f58320997a543bff"
+  },
+  "../../sc-exploits-minimized/lib/openzeppelin-contracts": {
+    "rev": "c64a1edb67b6e3f4a15cca8909c9482ad33a02b0"
+  },
+  "../5-t-swap-audit/lib/forge-std": {
+    "rev": "1801b0541f4fda118a10798fd3486bb7051c5dd6"
+  },
+  "../5-t-swap-audit/lib/openzeppelin-contracts": {
+    "rev": "fcbae5394ae8ad52d8e580a3477db99814b9d565"
+  },
+  "../puppy-raffle/lib/base64": {
+    "rev": "dcbf852ba545b3d15de0ac0ef88dce934c090c8e"
+  },
+  "../puppy-raffle/lib/forge-std": {
+    "rev": "066ff16c5c03e6f931cd041fd366bc4be1fae82a"
+  },
+  "../puppy-raffle/lib/openzeppelin-contracts": {
+    "rev": "fa64a1ced0b70ab89073d5d0b6e01b0778f7e7d6"
+  },
+  "lib/forge-std": {
+    "tag": {
+      "name": "v1.15.0",
+      "rev": "0844d7e1fc5e60d77b68e469bff60265f236c398"
+    }
+  },
+  "lib/openzeppelin-contracts": {
+    "tag": {
+      "name": "v5.5.0",
+      "rev": "fcbae5394ae8ad52d8e580a3477db99814b9d565"
+    }
+  }
+}
