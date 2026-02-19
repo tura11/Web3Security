@@ -10,8 +10,7 @@ clean  :; forge clean
 # Remove modules
 remove :; rm -rf .gitmodules && rm -rf .git/modules/* && rm -rf lib && touch .gitmodules && git add . && git commit -m "modules"
 
-install :; forge install foundry-rs/forge-std --no-commit && forge install openzeppelin/openzeppelin-contracts --no-commit && forge install patrickalphac/solmate-bad --no-commit
-
+install :; forge install foundry-rs/forge-std && forge install openzeppelin/openzeppelin-contracts && forge install patrickalphac/solmate-bad
 # Update Dependencies
 update:; forge update
 
