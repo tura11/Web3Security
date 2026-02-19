@@ -13,3 +13,21 @@
 [submodule "audits/5-t-swap-audit/lib/openzeppelin-contracts"]
 	path = audits/5-t-swap-audit/lib/openzeppelin-contracts
 	url = https://github.com/openzeppelin/openzeppelin-contracts
+[submodule "sc-exploits-minimized/lib/forge-std"]
+	path = sc-exploits-minimized/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "sc-exploits-minimized/lib/openzeppelin-contracts"]
+	path = sc-exploits-minimized/lib/openzeppelin-contracts
+	url = https://github.com/openzeppelin/openzeppelin-contracts
+[submodule "sc-exploits-minimized/lib/kontrol-cheatcodes"]
+	path = sc-exploits-minimized/lib/kontrol-cheatcodes
+	url = https://github.com/runtimeverification/kontrol-cheatcodes
+[submodule "audits/ai-santas-list/lib/forge-std"]
+	path = audits/ai-santas-list/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "audits/ai-santas-list/lib/openzeppelin-contracts"]
+	path = audits/ai-santas-list/lib/openzeppelin-contracts
+	url = https://github.com/openzeppelin/openzeppelin-contracts
+[submodule "audits/ai-santas-list/lib/solmate-bad"]
+	path = audits/ai-santas-list/lib/solmate-bad
+	url = https://github.com/patrickalphac/solmate-bad

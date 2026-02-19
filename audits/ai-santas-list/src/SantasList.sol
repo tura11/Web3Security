@@ -44,8 +44,7 @@
 //                 |'= -x       L___   '--,
 //                 L   __\          '-----'
 //                  '.____)
-pragma solidity 0.8.22;
-
+pragma solidity ^0.8.24;
 import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {TokenUri} from "./TokenUri.sol";
 import {SantaToken} from "./SantaToken.sol";
@@ -118,7 +117,7 @@ contract SantasList is ERC721, TokenUri {
      * @param person The person to check
      * @param status The status of the person
      */
-    function checkList(address person, Status status) external {
+    function checkList(address person, Status status) external { //audit-high  anyone can call it, access-control
         s_theListCheckedOnce[person] = status;
         emit CheckedOnce(person, status);
     }
@@ -170,7 +169,8 @@ contract SantasList is ERC721, TokenUri {
      * @dev You'll first need to approve the SantasList contract to spend your SantaTokens.
      */
     function buyPresent(address presentReceiver) external {
-        i_santaToken.burn(presentReceiver);
+        //audit-informational no zero address check
+        i_santaToken.burn(presentReceiver);//audit-high why the presentReceiver is one whos token getting burned?? and  not msg.sender and why we use _mintAndIncrement if its mint token for msg.sender so in this case to present giver
         _mintAndIncrement();
     }
 
