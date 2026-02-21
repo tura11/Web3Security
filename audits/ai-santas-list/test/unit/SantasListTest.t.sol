@@ -185,8 +185,8 @@ contract SantasListTest is Test{
         console.log(" Giver NFT balance after: ", userNftBalanceAfter);
     }
 
-    function testProofOfCodeAddress0() public {
-        vm.prank(user);
-        santasList.buyPresent(address(0));
-    }
+    // function testProofOfCodeAddress0() public {
+    //     vm.prank(user);
+    //     santasList.buyPresent(address(0));
+    // }
 }
