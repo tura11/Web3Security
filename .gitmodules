@@ -31,3 +31,9 @@
 [submodule "audits/ai-santas-list/lib/solmate-bad"]
 	path = audits/ai-santas-list/lib/solmate-bad
 	url = https://github.com/patrickalphac/solmate-bad
+[submodule "audits/2025-07-beatland-festival/lib/forge-std"]
+	path = audits/2025-07-beatland-festival/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "audits/2025-07-beatland-festival/lib/openzeppelin-contracts"]
+	path = audits/2025-07-beatland-festival/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts

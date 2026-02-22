@@ -38,7 +38,7 @@ User can call the function.
 + add this code
 
 
-# [H-2] business logic in BuyPresent function, leads to drain user funds
+# [C-1] business logic in BuyPresent function, leads to drain user funds
 
 
 # DESCRIPTION
