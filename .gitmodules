@@ -37,3 +37,9 @@
 [submodule "audits/2025-07-beatland-festival/lib/openzeppelin-contracts"]
 	path = audits/2025-07-beatland-festival/lib/openzeppelin-contracts
 	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "audits/ai-airdropper/lib/forge-std"]
+	path = audits/ai-airdropper/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "audits/ai-airdropper/lib/openzeppelin-contracts"]
+	path = audits/ai-airdropper/lib/openzeppelin-contracts
+	url = https://github.com/openzeppelin/openzeppelin-contracts

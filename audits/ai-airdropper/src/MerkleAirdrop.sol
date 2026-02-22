@@ -30,13 +30,13 @@ contract MerkleAirdrop is Ownable {
     function claim(address account, uint256 amount, bytes32[] calldata merkleProof) external payable {
         if (msg.value != FEE) {
             revert MerkleAirdrop__InvalidFeeAmount();
-        }
+        } //audit-high, could claim many times, no checks, leads to drain all other eligable users funds
         bytes32 leaf = keccak256(bytes.concat(keccak256(abi.encode(account, amount))));
         if (!MerkleProof.verify(merkleProof, i_merkleRoot, leaf)) {
             revert MerkleAirdrop__InvalidProof();
         }
         emit Claimed(account, amount);
-        i_airdropToken.safeTransfer(account, amount);
+        i_airdropToken.safeTransfer(account, amount); //audit-low, account could be a different then msg.sender
     }
 
     function claimFees() external onlyOwner {
