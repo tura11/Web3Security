@@ -38,10 +38,10 @@ contract MerkleAirdropTest is Test {
         assertEq(endingBalance - startingBalance, amountToCollect);
     }
 
-    function testPwned() public {
-        string[] memory cmds = new string[](2);
-        cmds[0] = "touch";
-        cmds[1] = string.concat("youve-been-pwned");
-        cheatCodes.ffi(cmds);
-    }
+    // function testPwned() public {
+    //     string[] memory cmds = new string[](2); // audit-risk always check what are you auditing
+    //     cmds[0] = "touch";
+    //     cmds[1] = string.concat("youve-been-pwned");
+    //     cheatCodes.ffi(cmds);
+    // }
 }
