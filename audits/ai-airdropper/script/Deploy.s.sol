@@ -5,7 +5,7 @@ import { MerkleAirdrop, IERC20 } from "../src/MerkleAirdrop.sol";
 import { Script } from "forge-std/Script.sol";
 
 contract Deploy is Script {
-    address public s_zkSyncUSDC = 0x1D17CbCf0D6d143135be902365d2e5E2a16538d4;
+    address public s_zkSyncUSDC = 0x1D17CbCf0D6d143135be902365d2e5E2a16538d4; //audit   0x1d17CBcF0D6D143135aE902365D2E5e2A16538D4 these addresses arent the same
     bytes32 public s_merkleRoot = 0xf69aaa25bd4dd10deb2ccd8235266f7cc815f6e9d539e9f4d47cae16e0c36a05;
     // 4 users, 25 USDC each
     uint256 public s_amountToAirdrop = 4 * (25 * 1e6);

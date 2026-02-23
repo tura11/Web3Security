@@ -26,7 +26,7 @@ contract MerkleAirdrop is Ownable {
         i_merkleRoot = merkleRoot;
         i_airdropToken = airdropToken;
     }
-
+    //audit no zero check for account and amount
     function claim(address account, uint256 amount, bytes32[] calldata merkleProof) external payable {
         if (msg.value != FEE) {
             revert MerkleAirdrop__InvalidFeeAmount();
@@ -41,7 +41,6 @@ contract MerkleAirdrop is Ownable {
 
     function claimFees() external onlyOwner {
         (bool succ,) = payable(owner()).call{ value: address(this).balance }("");
-        if (!succ) {
             revert MerkleAirdrop__TransferFailed();
         }
     }
