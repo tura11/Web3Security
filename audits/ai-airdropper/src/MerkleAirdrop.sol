@@ -17,7 +17,7 @@ contract MerkleAirdrop is Ownable {
     bytes32 private immutable i_merkleRoot;
 
     event Claimed(address account, uint256 amount);
-    event MerkleRootUpdated(bytes32 newMerkleRoot);
+    event MerkleRootUpdated(bytes32 newMerkleRoot); //audit-gas event not used
 
     /*//////////////////////////////////////////////////////////////
                                FUNCTIONS
@@ -43,7 +43,6 @@ contract MerkleAirdrop is Ownable {
         (bool succ,) = payable(owner()).call{ value: address(this).balance }("");
             revert MerkleAirdrop__TransferFailed();
         }
-    }
 
     /*//////////////////////////////////////////////////////////////
                              VIEW AND PURE

