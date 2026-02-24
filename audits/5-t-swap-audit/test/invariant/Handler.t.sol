@@ -12,6 +12,7 @@ contract Handler is  Test {
     ERC20Mock tokenPool;
 
     address liquidityProvider = makeAddr("liquidityProvider");
+    address swapper = makeAddr("swapper");
 
 
     //ghost variables
@@ -57,9 +58,45 @@ contract Handler is  Test {
     function swapPoolTOkenForWethBasedOnOutPutWeth(uint256 outputWeth) public {
         outputWeth = bound(outputWeth, 0, type(uint64).max);
         if(outputWeth >= weth.balanceOf(address(pool))){
-    
+            return;
         }
+        uint256 poolTokenAmount = pool.getInputAmountBasedOnOutput(
+            outputWeth,
+            tokenPool.balanceOf(address(pool)),
+            weth.balanceOf(address(pool))
+            );
+
+            if(poolTokenAmount > type(uint64).max){
+                return;
+            }
+
+        startingY = int256(weth.balanceOf(address(this)));
+        startingX = int256(tokenPool.balanceOf(address(this)));
+        expectedDeltaY = int256(-1) * int256(outputWeth);
+        expectedDeltaX = int256(pool.getPoolTokensToDepositBasedOnWeth(poolTokenAmount));
+
+        if(tokenPool.balanceOf(swapper) < poolTokenAmount) {
+            tokenPool.mint(swapper, poolTokenAmount - tokenPool.balanceOf(swapper) + 1);
+        }
+
+        vm.startPrank(swapper);
+        tokenPool.approve(address(pool), type(uint256).max);
+        pool.swapExactOutput(
+            tokenPool,
+            weth,
+            outputWeth,
+            uint64(block.timestamp)
+        );
+        vm.stopPrank();
+
+        uint256 endingY = weth.balanceOf(address(this));
+        uint256 endingX = tokenPool.balanceOf(address(this));
+
+        actualDeltaY = int256(endingY) - int256(startingY);
+        actualDeltaX = int256(endingX) - int256(startingX);
+
     }
+
 
 
 }
