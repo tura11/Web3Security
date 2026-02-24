@@ -43,7 +43,7 @@ contract TSwapPool is ERC20 {
     IERC20 private immutable i_wethToken;
     IERC20 private immutable i_poolToken;
     uint256 private constant MINIMUM_WETH_LIQUIDITY = 1_000_000_000;
-    uint256 private swap_count = 0;
+    uint256 private swap_count = 0; //audit-gas if swap_count max is 10 we can store it in uint8
     uint256 private constant SWAP_COUNT_MAX = 10;
 
     /*//////////////////////////////////////////////////////////////
@@ -395,7 +395,9 @@ contract TSwapPool is ERC20 {
         ) {
             revert TSwapPool__InvalidToken();
         }
+        
 
+        // @audit breaks the protocol
         swap_count++;
         if (swap_count >= SWAP_COUNT_MAX) {
             swap_count = 0;
