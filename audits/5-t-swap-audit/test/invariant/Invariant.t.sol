@@ -6,6 +6,7 @@ import {StdInvariant} from "forge-std/StdInvariant.sol";
 import {ERC20Mock} from "../mocks/ERC20Mock.sol";
 import {PoolFactory} from "../../src/PoolFactory.sol";
 import {TSwapPool} from "../../src/TSwapPool.sol";
+import {Handler} from "./Handler.t.sol";
 
 contract Invariant is StdInvariant, Test {
     ERC20Mock poolToken;
@@ -13,6 +14,7 @@ contract Invariant is StdInvariant, Test {
 
     PoolFactory factory;
     TSwapPool pool;
+    Handler handler;
 
     int256 constant STARTING_X = 100e18; //erc20 pool token
     int256 constant STARTING_Y = 50e18; // weth
@@ -30,5 +32,22 @@ contract Invariant is StdInvariant, Test {
         weth.approve(address(pool), type(uint256).max);
 
         pool.deposit(uint256(STARTING_Y), uint256(STARTING_Y), uint256(STARTING_X), uint64(block.timestamp));
+
+        handler = new Handler(pool);
+        bytes4[] memory selectors = new bytes4[](2);
+        selectors[0] = Handler.deposit.selector;
+        selectors[1] = Handler.swapPoolTOkenForWethBasedOnOutPutWeth.selector;
+        targetSelector(FuzzSelector({addr: address(handler), selectors: selectors}));
+        targetContract(address(handler));
     }
+
+    function invariant_constantProductFormulaStaysTheSameX() public {
+        assertEq(handler.actualDeltaX(), handler.expectedDeltaX());
+    }
+
+
+     function invariant_constantProductFormulaStaysTheSameY() public {
+        assertEq(handler.actualDeltaY(), handler.expectedDeltaY());
+    }
+
 }
