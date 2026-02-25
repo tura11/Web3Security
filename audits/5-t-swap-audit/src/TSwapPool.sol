@@ -355,6 +355,9 @@ contract TSwapPool is ERC20 {
             outputReserves
         );
 
+
+        //@audit-medium, no slippage protection
+
         _swap(inputToken, inputAmount, outputToken, outputAmount);
     }
 
