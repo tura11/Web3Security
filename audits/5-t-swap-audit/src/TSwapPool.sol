@@ -114,7 +114,7 @@ contract TSwapPool is ERC20 {
         uint256 wethToDeposit,
         uint256 minimumLiquidityTokensToMint,
         uint256 maximumPoolTokensToDeposit,
-        uint64 deadline
+        uint64 deadline //audit-high we dont set deadline, leads to make user feel scamed 
     )
         external
         revertIfZero(wethToDeposit)
@@ -128,7 +128,7 @@ contract TSwapPool is ERC20 {
         }
         if (totalLiquidityTokenSupply() > 0) {
             uint256 wethReserves = i_wethToken.balanceOf(address(this));
-            uint256 poolTokenReserves = i_poolToken.balanceOf(address(this));
+            uint256 poolTokenReserves = i_poolToken.balanceOf(address(this)); //audit-info unused variable
             // Our invariant says weth, poolTokens, and liquidity tokens must always have the same ratio after the
             // initial deposit
             // poolTokens / constant(k) = weth
@@ -193,6 +193,7 @@ contract TSwapPool is ERC20 {
         uint256 liquidityTokensToMint
     ) private {
         _mint(msg.sender, liquidityTokensToMint);
+        //audit-low wrong parameters sequence
         emit LiquidityAdded(msg.sender, poolTokensToDeposit, wethToDeposit);
 
         // Interactions
@@ -291,21 +292,21 @@ contract TSwapPool is ERC20 {
         returns (uint256 inputAmount)
     {
         return
-            ((inputReserves * outputAmount) * 10000) /
+            ((inputReserves * outputAmount) * 10000) / //audit-high 997/10000 its 91.3% fee!!
             ((outputReserves - outputAmount) * 997);
     }
 
-    function swapExactInput(
+    function swapExactInput( 
         IERC20 inputToken,
         uint256 inputAmount,
         IERC20 outputToken,
         uint256 minOutputAmount,
         uint64 deadline
     )
-        public
+        public // audit-gas should be external
         revertIfZero(inputAmount)
         revertIfDeadlinePassed(deadline)
-        returns (uint256 output)
+        returns (uint256 output) //audit-low, it always returns 0 which is not the case
     {
         uint256 inputReserves = inputToken.balanceOf(address(this));
         uint256 outputReserves = outputToken.balanceOf(address(this));
