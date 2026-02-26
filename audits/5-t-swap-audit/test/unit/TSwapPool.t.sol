@@ -91,4 +91,28 @@ contract TSwapPoolTest is Test {
         assertEq(pool.totalSupply(), 0);
         assert(weth.balanceOf(liquidityProvider) + poolToken.balanceOf(liquidityProvider) > 400e18);
     }
+
+   function test_InputAmountFeeIsTooHigh() public {
+    uint256 inputReserves = 1000 ether;
+    uint256 outputReserves = 1000 ether;
+    uint256 outputAmount = 100 ether;
+
+
+    uint256 inputWrong = pool.getInputAmountBasedOnOutput(
+        outputAmount,
+        inputReserves,
+        outputReserves
+    );
+
+ 
+    uint256 numerator = inputReserves * outputAmount * 1000;
+    uint256 denominator = (outputReserves - outputAmount) * 997;
+    uint256 inputCorrect = numerator / denominator;
+
+    console.log("Wrong input:", inputWrong);
+    console.log("Correct input:", inputCorrect);
+
+
+    assertGt(inputWrong, inputCorrect * 9); 
+    }
 }

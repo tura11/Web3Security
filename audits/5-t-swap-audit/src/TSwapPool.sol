@@ -71,7 +71,7 @@ contract TSwapPool is ERC20 {
                                MODIFIERS
     //////////////////////////////////////////////////////////////*/
     modifier revertIfDeadlinePassed(uint64 deadline) { 
-        if (deadline < uint64(block.timestamp)) {//audit-low unnecessary downcasting of block.timestamp to uint64
+        if (deadline < uint64(block.timestamp)) {
             revert TSwapPool__DeadlineHasPassed(deadline);
         }
         _;
