@@ -373,7 +373,7 @@ contract TSwapPool is ERC20 {
             swapExactOutput(
                 i_poolToken,
                 i_wethToken,
-                poolTokenAmount,
+                poolTokenAmount, //@audit this is wrong, should be wethtokenAmount as output
                 uint64(block.timestamp) //audit-low unnecessary downcasting of block.timestamp to uint64
             );
     }
@@ -438,7 +438,7 @@ contract TSwapPool is ERC20 {
     }
 
     /// @notice a more verbose way of getting the total supply of liquidity tokens
-    function totalLiquidityTokenSupply() public view returns (uint256) {
+    function totalLiquidityTokenSupply() public view returns (uint256) { //audit should be external
         return totalSupply();
     }
 
