@@ -46,7 +46,6 @@ contract PoolFactory {
                            EXTERNAL FUNCTIONS
     //////////////////////////////////////////////////////////////*/
     function createPool(address tokenAddress) external returns (address) {
-        //audit-informational no checks for zero address of tokenAddress
         if (s_pools[tokenAddress] != address(0)) {
             revert PoolFactory__PoolAlreadyExists(tokenAddress);
         }
