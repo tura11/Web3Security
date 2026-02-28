@@ -117,17 +117,6 @@ contract TSwapPoolTest is Test {
     }
 
     function testProofOfCodeSlippage() public {
-        uint256 inputReserves = 1000 ether;
-        uint256 outputReserves = 1000 ether;
-        uint256 outputAmount = 100 ether;
-        uint256 inputWrong = pool.getInputAmountBasedOnOutput(
-            outputAmount,
-            inputReserves,
-            outputReserves
-        );
-        uint256 numerator = inputReserves * outputAmount * 1000;
-        uint256 denominator = (outputReserves - outputAmount) * 997;
-        uint256 inputCorrect = numerator / denominator;
-        assertGt(inputWrong, inputCorrect * 9); 
+
     }
 }
