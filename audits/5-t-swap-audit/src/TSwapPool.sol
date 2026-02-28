@@ -374,7 +374,7 @@ contract TSwapPool is ERC20 {
                 i_poolToken,
                 i_wethToken,
                 poolTokenAmount, //@audit this is wrong, should be wethtokenAmount as output
-                uint64(block.timestamp) //audit-low unnecessary downcasting of block.timestamp to uint64
+                uint64(block.timestamp) 
             );
     }
 
