@@ -401,7 +401,7 @@ contract TSwapPool is ERC20 {
         }
         
 
-        // @audit breaks the protocol
+        // @audit-high breaks the protocol formula x * y = k;
         swap_count++;
         if (swap_count >= SWAP_COUNT_MAX) {
             swap_count = 0;
