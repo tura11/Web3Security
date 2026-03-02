@@ -4,7 +4,7 @@ pragma solidity ^0.8.19;
 contract MultiSigWallet {
     error NotAnOwner();
     error AlreadyApproved();
-    error NotEnoughApprovals();
+    error NotEnoughApprovals(); //audit-gas unused error
     error InvalidRecipient();
     error InvalidAmount();
 
