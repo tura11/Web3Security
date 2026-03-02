@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "./SoulboundProfileNFT.sol";
+import "./SoulboundProfileNFT.sol"; //audit-info bad imports
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./MultiSig.sol";
 
 contract LikeRegistry is Ownable {
-    struct Like {
+    struct Like { //audit-gas we nowhere use this
         address liker;
         address liked;
         uint256 timestamp;
@@ -14,7 +14,7 @@ contract LikeRegistry is Ownable {
 
     SoulboundProfileNFT public profileNFT;
 
-    uint256 immutable FIXEDFEE = 10;
+    uint256 immutable FIXEDFEE = 10;//audit-low should be constant;
     uint256 totalFees;
 
     mapping(address => mapping(address => bool)) public likes;
@@ -48,9 +48,9 @@ contract LikeRegistry is Ownable {
     }
 
     function matchRewards(address from, address to) internal {
-        uint256 matchUserOne = userBalances[from];
-        uint256 matchUserTwo = userBalances[to];
-        userBalances[from] = 0;
+        uint256 matchUserOne = userBalances[from]; // audit-high these values are always zero since we never update userBalances
+        uint256 matchUserTwo = userBalances[to];// audit-high these values are always zero since we never update userBalances
+        userBalances[from] = 0; 
         userBalances[to] = 0;
 
         uint256 totalRewards = matchUserOne + matchUserTwo;
@@ -59,7 +59,7 @@ contract LikeRegistry is Ownable {
         totalFees += matchingFees;
 
         // Deploy a MultiSig contract for the matched users
-        MultiSigWallet multiSigWallet = new MultiSigWallet(from, to);
+        MultiSigWallet multiSigWallet = new MultiSigWallet(from, to); //audit-medium, possiblity of DoS, every new match deploing mulitSiGwallet contarct
 
         // Send ETH to the deployed multisig wallet
         (bool success,) = payable(address(multiSigWallet)).call{value: rewards}("");
