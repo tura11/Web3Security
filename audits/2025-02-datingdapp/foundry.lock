@@ -1,0 +1,53 @@
+{
+  "../../sc-exploits-minimized/lib/forge-std": {
+    "rev": "0844d7e1fc5e60d77b68e469bff60265f236c398"
+  },
+  "../../sc-exploits-minimized/lib/kontrol-cheatcodes": {
+    "rev": "187b89ad863226afe494caa9f58320997a543bff"
+  },
+  "../../sc-exploits-minimized/lib/openzeppelin-contracts": {
+    "rev": "6b55a93ee9bf4c412de1a03536701de33dfccb87"
+  },
+  "../5-t-swap-audit/lib/forge-std": {
+    "rev": "0844d7e1fc5e60d77b68e469bff60265f236c398"
+  },
+  "../5-t-swap-audit/lib/openzeppelin-contracts": {
+    "rev": "6b55a93ee9bf4c412de1a03536701de33dfccb87"
+  },
+  "../ai-airdropper/lib/forge-std": {
+    "rev": "0844d7e1fc5e60d77b68e469bff60265f236c398"
+  },
+  "../ai-airdropper/lib/openzeppelin-contracts": {
+    "rev": "6b55a93ee9bf4c412de1a03536701de33dfccb87"
+  },
+  "../ai-santas-list/lib/forge-std": {
+    "rev": "0844d7e1fc5e60d77b68e469bff60265f236c398"
+  },
+  "../ai-santas-list/lib/openzeppelin-contracts": {
+    "rev": "6b55a93ee9bf4c412de1a03536701de33dfccb87"
+  },
+  "../ai-santas-list/lib/solmate-bad": {
+    "rev": "c3877e5571461c61293503f45fc00959fff4ebba"
+  },
+  "../puppy-raffle/lib/base64": {
+    "rev": "4d85607b18d981acff392d2e99ba654305552a97"
+  },
+  "../puppy-raffle/lib/forge-std": {
+    "rev": "066ff16c5c03e6f931cd041fd366bc4be1fae82a"
+  },
+  "../puppy-raffle/lib/openzeppelin-contracts": {
+    "rev": "6b55a93ee9bf4c412de1a03536701de33dfccb87"
+  },
+  "lib/forge-std": {
+    "tag": {
+      "name": "v1.15.0",
+      "rev": "0844d7e1fc5e60d77b68e469bff60265f236c398"
+    }
+  },
+  "lib/openzeppelin-contracts": {
+    "tag": {
+      "name": "v5.6.1",
+      "rev": "5fd1781b1454fd1ef8e722282f86f9293cacf256"
+    }
+  }
+}
