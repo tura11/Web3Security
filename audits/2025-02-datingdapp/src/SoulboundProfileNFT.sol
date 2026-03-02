@@ -31,7 +31,7 @@ contract SoulboundProfileNFT is ERC721, Ownable {
         require(profileToToken[msg.sender] == 0, "Profile already exists");
 
         uint256 tokenId = ++_nextTokenId;
-        _safeMint(msg.sender, tokenId);
+        _safeMint(msg.sender, tokenId); //audit-high, reentrancy, CEI pattern not followed, user can mint multiple profiles
 
         // Store metadata on-chain
         _profiles[tokenId] = Profile(name, age, profileImage);
@@ -46,7 +46,7 @@ contract SoulboundProfileNFT is ERC721, Ownable {
         require(tokenId != 0, "No profile found");
         require(ownerOf(tokenId) == msg.sender, "Not profile owner");
 
-        _burn(tokenId);
+        _burn(tokenId); //audit-info CEI pattern not followed
         delete profileToToken[msg.sender];
         delete _profiles[tokenId];
 
@@ -54,7 +54,7 @@ contract SoulboundProfileNFT is ERC721, Ownable {
     }
 
     /// @notice App owner can block users
-    function blockProfile(address blockAddress) external onlyOwner {
+    function blockProfile(address blockAddress) external onlyOwner { //audit-medium centralization risk, owner can just delete users profile with no comment
         uint256 tokenId = profileToToken[blockAddress];
         require(tokenId != 0, "No profile found");
 
