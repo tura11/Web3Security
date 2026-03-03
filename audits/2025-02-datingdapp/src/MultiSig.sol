@@ -9,7 +9,7 @@ contract MultiSigWallet {
     error InvalidAmount();
 
     address public owner1; //audit-gas should be immutable
-    address public owner2;
+    address public owner2; //audit-gas should be immutable
 
     struct Transaction {
         address to;
