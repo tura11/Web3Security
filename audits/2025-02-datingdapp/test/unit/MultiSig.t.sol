@@ -3,7 +3,7 @@
 pragma solidity ^0.8.19;
 
 import {Test,console2 } from "forge-std/Test.sol";
-import {MultiSigWallet} from "../src/MultiSig.sol";
+import {MultiSigWallet} from "../../src/MultiSig.sol";
 contract MultiSigTest is Test {
     MultiSigWallet wallet;
     address owner1;
@@ -62,6 +62,14 @@ contract MultiSigTest is Test {
         uint256 balanceAfter = address(wallet).balance;
         assertEq(wallet.getExecuted(0), true);
         assertEq(balanceBefore - balanceAfter, 100);
+    }
+
+
+    function testSubmitTranscationRevertIfNotOwner() public {
+        vm.prank(recipient);
+        vm.expectRevert(MultiSigWallet.NotAnOwner.selector);
+        wallet.submitTransaction(recipient, 100);
+
     }
 
 

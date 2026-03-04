@@ -2,7 +2,7 @@
 pragma solidity ^0.8.19;
 
 import "forge-std/Test.sol";
-import "../src/SoulboundProfileNFT.sol";
+import "../../src/SoulboundProfileNFT.sol";
 
 contract SoulboundProfileNFTTest is Test {
     SoulboundProfileNFT soulboundNFT;
