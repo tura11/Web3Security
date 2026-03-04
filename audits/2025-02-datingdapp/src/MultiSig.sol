@@ -78,6 +78,18 @@ contract MultiSigWallet {
         emit TransactionExecuted(_txId, txn.to, txn.value);
     }
 
+    function getTransactionsLength() external view returns (uint256) {
+        return transactions.length;
+    }
+
+    function getApprovedByOwner1(uint256 _txId) external view returns (bool) {
+        return transactions[_txId].approvedByOwner1;
+    }
+
+    function getApprovedByOwner2(uint256 _txId) external view returns (bool) {
+        return transactions[_txId].approvedByOwner2;
+    }
+
     /// @notice Allows the contract to receive ETH
     receive() external payable {}
 }
