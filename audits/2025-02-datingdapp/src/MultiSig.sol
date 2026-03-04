@@ -72,7 +72,7 @@ contract MultiSigWallet {
         require(txn.approvedByOwner1 && txn.approvedByOwner2, "Not enough approvals");
 
         txn.executed = true;
-        (bool success,) = payable(txn.to).call{value: txn.value}("");
+        (bool success,) = payable(txn.to).call{value: txn.value}(""); //audit-low we never check contract balance before sending, so if contract balance dosnet have amount you want to sent transaction will revert.
         require(success, "Transaction failed");
 
         emit TransactionExecuted(_txId, txn.to, txn.value);
@@ -88,6 +88,10 @@ contract MultiSigWallet {
 
     function getApprovedByOwner2(uint256 _txId) external view returns (bool) {
         return transactions[_txId].approvedByOwner2;
+    }
+
+    function getExecuted(uint256 _txId) external view returns (bool) {
+        return transactions[_txId].executed;
     }
 
     /// @notice Allows the contract to receive ETH
