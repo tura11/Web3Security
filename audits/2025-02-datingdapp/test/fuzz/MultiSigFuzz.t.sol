@@ -28,6 +28,26 @@ contract MultiSigFuzz is Test{
         wallet.submitTransaction(to, value);
         assertEq(wallet.getTransactionsLength(), 1);
     }
+
+
+    function test_FuzzOnlyOwnerCanSubmit(address caller, address to, uint256 value) public {
+        vm.assume(caller != owner1 && caller != owner2);
+        vm.assume(caller != address(0));
+        vm.assume(to != address(0));
+        vm.prank(caller);
+        vm.expectRevert(MultiSigWallet.NotAnOwner.selector);
+        wallet.submitTransaction(to, value);
+    }
+
+    function test_FuzzApproveInvalidTxId(uint256 txId) public {
+        vm.assume(txId > 0);
+        vm.prank(owner1);
+        vm.expectRevert();
+        wallet.approveTransaction(txId);
+    }
+
+
+
 }
 
 
