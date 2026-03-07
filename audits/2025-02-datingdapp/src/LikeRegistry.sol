@@ -79,6 +79,10 @@ contract LikeRegistry is Ownable {
         require(success, "Transfer failed");
     }
 
+    function getLiked(address user) external view returns (bool) {
+        return likes[msg.sender][user];
+    }
+
     /// @notice Allows the contract to receive ETH
     receive() external payable {}
 }
