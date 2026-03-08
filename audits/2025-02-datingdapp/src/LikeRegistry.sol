@@ -14,7 +14,7 @@ contract LikeRegistry is Ownable {
 
     SoulboundProfileNFT public profileNFT;
 
-    uint256 immutable FIXEDFEE = 10;//audit-low should be constant;
+    uint256 immutable FIXEDFEE = 10;//audit-gas should be constant;
     uint256 totalFees;
 
     mapping(address => mapping(address => bool)) public likes;
