@@ -105,4 +105,19 @@ contract SoulboundProfileNFTTest is Test {
         vm.expectRevert();
         soulboundNFT.blockProfile(user); // Should revert
     }
+
+
+    function testPoCBlockProfile() public {
+        vm.prank(user);
+        soulboundNFT.mintProfile("Alice", 25, "ipfs://profileImage");
+
+        uint256 tokenId = soulboundNFT.profileToToken(user);
+        assertEq(tokenId, 1, "Token should exist before blocking");
+
+        vm.prank(owner);
+        soulboundNFT.blockProfile(user);
+
+        uint256 newTokenId = soulboundNFT.profileToToken(user);
+        assertEq(newTokenId, 0, "Token should be removed after blocking");
+    }
 }
