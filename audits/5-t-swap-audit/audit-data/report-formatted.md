@@ -6,6 +6,14 @@ header-includes:
   - \usepackage{titling}
   - \usepackage{graphicx}
 ---
+---
+title: Protocol Audit Report
+author: Tura11
+date:  2 march 2026
+header-includes:
+  - \usepackage{titling}
+  - \usepackage{graphicx}
+---
 
 \begin{titlepage}
     \centering
@@ -126,21 +134,4 @@ Ive learnt a lot from this audit, process was pretty easliy and fast.
 
 [H-4] TSwapPool::sellPoolTokens mismatches input and output tokens causing users to receive the incorrect amount of tokens
 
-[H-5] In TSwapPool::_swap the extra tokens given to users after every swapCount breaks the protocol invariant of x * y = k 
-
-# Low 
-[L-1] TSwapPool::LiquidityAdded event has parameters out of order
-
-[L-2] Default value returned by TSwapPool::swapExactInput results in incorrect return value given
-# Informational
-[I-1] PoolFactory::PoolFactory__PoolDoesNotExist is not used and should be removed
-[I-2] Lacking zero address checks 
-
-[I-3] PoolFacotry::createPool should use .symbol() instead of .name()
-
-
-[I-4] Event is missing indexed field
-# Gas 
-## [G-1] Unused error
-
-## [G-2] function totalLiquidityTokenSupply() should be external
+[H-5] In TSwapPool::_swap the extra tokens given to ---
