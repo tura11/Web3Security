@@ -42,21 +42,14 @@ Tura11
 # Table of Contents
 - [Table of Contents](#table-of-contents)
 - [Protocol Summary](#protocol-summary)
-  - [TSwap Pools](#tswap-pools)
 - [Disclaimer](#disclaimer)
 - [Risk Classification](#risk-classification)
 - [Audit Details](#audit-details)
   - [Scope](#scope)
-  - [Roles](#roles)
 - [Executive Summary](#executive-summary)
   - [Issues found'](#issues-found)
 - [Findings](#findings)
 - [High](#high)
-- [Low](#low)
-- [Informational](#informational)
-- [Gas](#gas)
-  - [\[G-1\] Unused error](#g-1-unused-error)
-  - [\[G-2\] function totalLiquidityTokenSupply() should be external](#g-2-function-totalliquiditytokensupply-should-be-external)
 
 # Protocol Summary
 
@@ -98,9 +91,9 @@ We use the [CodeHawks](https://docs.codehawks.com/hawks-auditors/how-to-evaluate
 ## Scope 
 ```js
 src/
-├── LikeRegistry.sol
-├── MultiSig.sol
-├── SoulboundProfileNFT.sol
+ LikeRegistry.sol
+ MultiSig.sol
+ SoulboundProfileNFT.sol
 ```
 
 
