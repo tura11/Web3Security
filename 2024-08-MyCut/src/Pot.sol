@@ -6,7 +6,7 @@ import {Ownable} from "lib/openzeppelin-contracts/contracts/access/Ownable.sol";
 
 contract Pot is Ownable(msg.sender) {
     error Pot__RewardNotFound();
-    error Pot__InsufficientFunds();
+    error Pot__InsufficientFunds(); //audit-gas unused error
     error Pot__StillOpenForClaim();
 
     address[] private i_players;
@@ -30,11 +30,11 @@ contract Pot is Ownable(msg.sender) {
         // i_token.transfer(address(this), i_totalRewards);
 
         for (uint256 i = 0; i < i_players.length; i++) {
-            playersToRewards[i_players[i]] = i_rewards[i];
+            playersToRewards[i_players[i]] = i_rewards[i]; // audit-high we dont check the lenght of rewards array what if we got 3  players and 2 rewards
         }
     }
 
-    function claimCut() public {
+    function claimCut() public { //audit-gas should be external
         address player = msg.sender;
         uint256 reward = playersToRewards[player];
         if (reward <= 0) {
@@ -43,7 +43,7 @@ contract Pot is Ownable(msg.sender) {
         playersToRewards[player] = 0;
         remainingRewards -= reward;
         claimants.push(player);
-        _transferReward(player, reward);
+        _transferReward(player, reward); 
     }
 
     function closePot() external onlyOwner {
@@ -54,7 +54,7 @@ contract Pot is Ownable(msg.sender) {
             uint256 managerCut = remainingRewards / managerCutPercent;
             i_token.transfer(msg.sender, managerCut);
 
-            uint256 claimantCut = (remainingRewards - managerCut) / i_players.length;
+            uint256 claimantCut = (remainingRewards - managerCut) / i_players.length; // audit-high logic issue with division lead to stuck funds in contract forever
             for (uint256 i = 0; i < claimants.length; i++) {
                 _transferReward(claimants[i], claimantCut);
             }
@@ -65,15 +65,15 @@ contract Pot is Ownable(msg.sender) {
         i_token.transfer(player, reward);
     }
 
-    function getToken() public view returns (IERC20) {
+    function getToken() public view returns (IERC20) { //audit-gas should be external
         return i_token;
     }
-
-    function checkCut(address player) public view returns (uint256) {
+ 
+    function checkCut(address player) public view returns (uint256) { //audit-gas should be external
         return playersToRewards[player];
     }
 
-    function getRemainingRewards() public view returns (uint256) {
+    function getRemainingRewards() public view returns (uint256) { //audit-gas should be external
         return remainingRewards;
     }
 }
