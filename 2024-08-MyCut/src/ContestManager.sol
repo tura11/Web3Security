@@ -13,7 +13,7 @@ contract ContestManager is Ownable {
 
     constructor() Ownable(msg.sender) {}
 
-    function createContest(address[] memory players, uint256[] memory rewards, IERC20 token, uint256 totalRewards)
+    function createContest(address[] memory players, uint256[] memory rewards, IERC20 token, uint256 totalRewards) //audit-gas should be external
         public
         onlyOwner
         returns (address)
@@ -25,7 +25,7 @@ contract ContestManager is Ownable {
         return address(pot);
     }
 
-    function fundContest(uint256 index) public onlyOwner {
+    function fundContest(uint256 index) public onlyOwner { //audit-gas should be external
         Pot pot = Pot(contests[index]);
         IERC20 token = pot.getToken();
         uint256 totalRewards = contestToTotalRewards[address(pot)];
@@ -34,23 +34,24 @@ contract ContestManager is Ownable {
             revert ContestManager__InsufficientFunds();
         }
 
-        token.transferFrom(msg.sender, address(pot), totalRewards);
+        token.transferFrom(msg.sender, address(pot), totalRewards); //audit- medium we are not checking the transaction return false or true, lead to fake pot contract variables value
     }
 
-    function getContests() public view returns (address[] memory) {
+    function getContests() public view returns (address[] memory) { //audit-gas should be external
+
         return contests;
     }
 
-    function getContestTotalRewards(address contest) public view returns (uint256) {
+    function getContestTotalRewards(address contest) public view returns (uint256) { //audit-gas should be external
         return contestToTotalRewards[contest];
     }
 
-    function getContestRemainingRewards(address contest) public view returns (uint256) {
+    function getContestRemainingRewards(address contest) public view returns (uint256) { //audit-gas should be external
         Pot pot = Pot(contest);
         return pot.getRemainingRewards();
     }
 
-    function closeContest(address contest) public onlyOwner {
+    function closeContest(address contest) public onlyOwner { //audit-gas should be external
         _closeContest(contest);
     }
 
