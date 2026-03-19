@@ -55,3 +55,9 @@
 [submodule "2024-08-MyCut/lib/forge-std"]
 	path = 2024-08-MyCut/lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
+[submodule "audits/2024-08-MyCut/lib/openzeppelin-contracts"]
+	path = audits/2024-08-MyCut/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "audits/2024-08-MyCut/lib/Forge-std"]
+	path = audits/2024-08-MyCut/lib/Forge-std
+	url = https://github.com/foundry-rs/Forge-std

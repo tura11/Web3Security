@@ -183,4 +183,28 @@ contract TestMyCut is Test {
 
         assert(claimantBalanceAfter > claimantBalanceBefore);
     }
+
+
+
+
+    // PROOF OF CONCEPT
+
+
+    function testPocMissingArrayValidation() public mintAndApproveTokens {
+        vm.startPrank(user);
+        players = [player1, player2];
+        rewards = [3, 1, 4, 7];
+        ContestManager(conMan).createContest(players, rewards, IERC20(ERC20Mock(weth)), 15);
+        vm.stopPrank();
+
+        vm.startPrank(player1);
+        Pot(contest).claimCut();
+        vm.stopPrank();
+
+        vm.startPrank(player2);
+        Pot(contest).claimCut();
+        vm.stopPrank();
+
+        assertEq(pot.getRemainingRewards(), 11);
+    }
 }
