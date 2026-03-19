@@ -52,17 +52,17 @@ contract Pot is Ownable(msg.sender) {
         }
         if (remainingRewards > 0) {
             uint256 managerCut = remainingRewards / managerCutPercent;
-            i_token.transfer(msg.sender, managerCut);
+            i_token.transfer(msg.sender, managerCut); //audit-low we are not checking the transaction return false or true
 
             uint256 claimantCut = (remainingRewards - managerCut) / i_players.length; // audit-high logic issue with division lead to stuck funds in contract forever
-            for (uint256 i = 0; i < claimants.length; i++) {
+            for (uint256 i = 0; i < claimants.length; i++) { //audit-gas better store calimants length in a variable and loop through it
                 _transferReward(claimants[i], claimantCut);
             }
         }
     }
 
     function _transferReward(address player, uint256 reward) internal {
-        i_token.transfer(player, reward);
+        i_token.transfer(player, reward); // audit-medium we are not checking the transaction return false or true
     }
 
     function getToken() public view returns (IERC20) { //audit-gas should be external
